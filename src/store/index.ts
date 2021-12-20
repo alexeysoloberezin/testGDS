@@ -11,7 +11,7 @@ export default createStore({
     todoFilter: 'all',
   },
   getters: {
-    todoList: state => {
+    todoList: () => {
       const data = localStorage.getItem('todoList')
       if (data && data !== 'undefined') {
         return JSON.parse(data)
@@ -29,7 +29,7 @@ export default createStore({
         })
       }
       return []
-    }
+    },
   },
   mutations: {
     setTodoTask(state: any, value:string) {
@@ -76,6 +76,19 @@ export default createStore({
         default:
           state.todoFilter = 'all'
       }
+    },
+    clearCompleted() {
+      const data: any = localStorage.getItem('todoList')
+      const newTodoList: todoItem[] | [] | any  = []
+
+      if (data && data !== 'undefined') {
+        JSON.parse(data).forEach((item: todoItem) => {
+          if (item.status !== 'checked') {
+            newTodoList.push(item)
+          }
+        })
+      }
+      localStorage.setItem('todoList', JSON.stringify(newTodoList));
     }
   },
   actions: {
@@ -88,6 +101,9 @@ export default createStore({
     changeFilter(context, value:string){
       context.commit('setChangeFilter', value)
     },
+    clearCompleted(context){
+      context.commit('clearCompleted')
+    }
   },
   modules: {
   }

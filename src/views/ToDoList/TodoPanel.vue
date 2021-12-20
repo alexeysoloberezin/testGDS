@@ -12,13 +12,13 @@
     </button>
   </div>
   <div class="todoFilter">
-    <button class="btn btn-primary" @click="changeFilter">
+    <button class="btn btn-primary-outlined" :class="{active: todoFilter === 'all'}" @click="changeFilter">
       Все
     </button>
-    <button class="btn btn-primary-outlined" @click="changeFilter">
+    <button class="btn btn-primary-outlined" :class="{active: todoFilter === 'checked'}" @click="changeFilter">
       Выполненные
     </button>
-    <button class="btn btn-primary-outlined" @click="changeFilter">
+    <button class="btn btn-primary-outlined" :class="{active: todoFilter === ''}" @click="changeFilter">
       Активные
     </button>
   </div>
@@ -35,6 +35,7 @@ export default {
     const inputValue = ref<string>('')
     const statusError = ref<boolean>(false)
     const counterTasks = ref<number>(store.getters.todoListFilter.length)
+    const todoFilter = ref<string>(store.state.todoFilter)
 
     const addTask = () => {
       if (inputValue.value) {
@@ -55,6 +56,9 @@ export default {
         if (mutation.type === "setTodoTask" ||  mutation.type === "setChangeFilter" || mutation.type === "setCheckedTask") {
           counterTasks.value = store.getters.todoListFilter.length
         }
+        if (mutation.type === 'setChangeFilter'){
+          todoFilter.value = store.state.todoFilter
+        }
       })
     })
 
@@ -63,7 +67,8 @@ export default {
       addTask,
       counterTasks,
       statusError,
-      changeFilter
+      changeFilter,
+      todoFilter
     }
   }
 }

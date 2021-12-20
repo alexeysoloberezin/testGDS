@@ -14,6 +14,9 @@
   <div class="empty" v-else>
     Todo is empty
   </div>
+  <button class="btn btn-primary" v-if="todoList.length > 0" @click="clearCompleted">
+    Clear completed
+  </button>
 </template>
 
 <script>
@@ -28,20 +31,24 @@ export default {
 
     onMounted(() => {
       store.subscribe(mutation => {
-        if (  mutation.type === "setTodoTask"
-              || mutation.type === "setCheckedTask"
-              || mutation.type === "setChangeFilter"
+        if (   mutation.type === "setTodoTask"
+            || mutation.type === "setCheckedTask"
+            || mutation.type === "setChangeFilter"
+            || mutation.type === "clearCompleted"
         ) {
           todoList.value = store.getters.todoListFilter
         }
       })
     })
 
+    const clearCompleted = () => store.dispatch('clearCompleted')
+
     const checkedTask = id => store.dispatch('checkedTask', id)
 
     return {
       todoList,
       checkedTask,
+      clearCompleted,
     }
   }
 }

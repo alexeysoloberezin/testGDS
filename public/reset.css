@@ -43,7 +43,11 @@ a {
     background: var(--primary);
 }
 .btn-primary-outlined{
+    background: none;
     border: 1px solid var(--primary);
+}
+.btn.active{
+    background: var(--primary) !important;
 }
 .btn-primary-outlined:hover,.btn-primary-outlined:focus{
     background: rgba(0, 0, 0, 0.15);
