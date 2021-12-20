@@ -53,7 +53,11 @@ export default {
 
     onMounted(() => {
       store.subscribe(mutation => {
-        if (mutation.type === "setTodoTask" ||  mutation.type === "setChangeFilter" || mutation.type === "setCheckedTask") {
+        if (    mutation.type === "setTodoTask"
+            ||  mutation.type === "setChangeFilter"
+            ||  mutation.type === "clearCompleted"
+            ||  mutation.type === "setCheckedTask"
+        ){
           counterTasks.value = store.getters.todoListFilter.length
         }
         if (mutation.type === 'setChangeFilter'){
