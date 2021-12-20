@@ -3,21 +3,17 @@
     <div class="todo">
       <TodoPanel />
       <TodoList />
-      <TodoItem />
     </div>
-
   </div>
 </template>
 
-<script>
-import TodoItem from "./TodoItem.vue"
+<script lang="ts">
 import TodoPanel from "./TodoPanel.vue"
 import TodoList from "./TodoList.vue"
 
 export default {
   name: "Todo",
   components: {
-    TodoItem,
     TodoList,
     TodoPanel,
   }
